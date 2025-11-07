@@ -102,3 +102,6 @@ https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2022-
 [Sin autor] (2022, Octubre 27). Fortinet Authentication Bypass Vulnerability Analysis – CYFIRMA. cyfirma. https://www.cyfirma.com/research/fortinet-authentication-bypass-vulnerability-exploited-by-threat-actors/
 [Sin autor] (2025, Junio 19). Filtración de datos récord de 16 mil millones de la que nadie había oído hablar.. linked in. https://es.linkedin.com/pulse/filtraci%C3%B3n-de-datos-r%C3%A9cord-16-mil-millones-la-que-nadie-hab%C3%ADa-2zvcc
 [Sin autor] (2025, Junio 20). La filtración de 16.000 millones de contraseñas sería la más grande de la historia. Si no fuera porque es un gigantesco refrito. xataka. https://www.xataka.com/seguridad/filtracion-16-000-millones-contrasenas-seria-grande-historia-no-fuera-porque-gigantesco-refrito
+[Sin autor] (2025, Septiembre 4). Azure Entra ID Elevation of Privilege Vulnerability. microdoft. https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-55241
+
+[Sin autor] (2025, Octubre 14). Death by Token: Understanding CVE-2025-55241. practical 365. https://practical365.com/death-by-token-understanding-cve-2025-55241/
