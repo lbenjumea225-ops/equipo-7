@@ -1,11 +1,12 @@
 caso 2:
-SonicWall – CVE-2023-34124 / 34133 / 34137
+LinkedIn (2012 – 2016)
 
-En 2023, SonicWall alertó sobre múltiples vulnerabilidades en sus productos de gestión (“GMS”) y analítica (“Analytics”),
-incluyendo una de bypass de autenticación del servicio web (CVE-2023-34124) y otra de filtrado de contraseña hash y CAS authentication bypass (CVE-2023-34137) que permitían acceso no autenticado. 
-Advisories
-La complejidad del exploit era baja, lo que significa que un atacante sin privilegios podía aprovecharlas de forma remota. 
-Advisories
+En 2012, LinkedIn sufrió un robo masivo de contraseñas.
+Inicialmente se creía que eran 6,5 millones de cuentas, pero en 2016 se confirmó que fueron más de 167 millones.
 
-Aprendizaje: Los sistemas de gestión de seguridad/informe también son “cuerpos críticos” y muchas veces olvidados en el ciclo de parches.
-En tu proyecto de login + roles + redirección esto refuerza que los sistemas de administración requieren controles más estrictos.
+LinkedIn almacenaba las contraseñas con hash SHA-1 sin “sal”.
+Esto es una práctica insegura, porque:
+
+SHA-1 ya era un algoritmo débil (rápido de romper).
+Al no usar sal (salt), dos usuarios con la misma contraseña tenían el mismo hash.
+Los atacantes podían usar tablas de “rainbow” para descifrar millones de contraseñas rápidamente.
