@@ -277,11 +277,121 @@ Contract tests para APIs (OpenAPI/Swagger).
 Security scans: SAST en cada PR, DAST en pipeline pre-prod.
 Regression tests: verificar que cambios no rompen sesión/MFA.
 
+      Métodos de ataque comunes (y por qué son efectivos)
+
+-Credential stuffing — usar credenciales filtradas en otros sitios; escala masiva con listas de pares leaked; éxito por reutilización de contraseñas. (Akamai/industry reports: miles de millones de intentos en picos históricamente). 
+-Brute-force / password spraying — probar contraseñas comunes o listas pequeñas contra muchas cuentas; efectivo contra cuentas con contraseñas débiles y sin rate-limiting. 
+-Phishing / Theft / Infostealers — roban credenciales directamente del usuario o del dispositivo (info-stealers recientes generaron grandes dumps). 
+-Session hijacking / cookie theft — robo de cookies o tokens (MITM, XSS, exposición en logs) y reuso para suplantar sesión.
+-Replay / token manipulation (JWT tampering) — modificar/reenviar tokens si firma/validación mal implementada.
+-Explotación de flujos de recuperación de contraseña — tokens predecibles, expiración larga, o flujos que permiten reset sin comprobación suficiente.
+-Explotación de autenticación heredada — protocolos legacy (IMAP/POP/SMTP sin MFA) usados como vector para omitir MFA
+
+    Mejores prácticas (hashing, salting, 2FA / MFA y otras)
+
+Hashing & Salting (resumen operativo)
+
+-Algoritmos recomendados: Argon2, bcrypt o scrypt — Argon2 es la elección moderna (ganador del PHC). PBKDF2 sigue siendo aceptable si se configura con alto número de iteraciones. 
+-Parámetros/Cost: ajustar work factor / memoria según hardware. Estudios prácticos recomiendan configuraciones de memoria sustanciales (p.ej. parámetros seguros de Argon2 — papers muestran ventajas con ~46 MiB o más según el caso), y elevar iteraciones para PBKDF2 (OWASP sugiere valores altos). 
+-Salt: usar salt único por usuario generado con CSPRNG; almacenar salt en la BD junto al hash (no hace falta cifrar el salt). Evitar reuso de salt. 
+-Pepper (opcional): valor secreto adicional almacenado fuera de la BD (p. ej. en Vault) para añadir defensa en profundidad.
+-Migración: si migras hashes viejos (MD5/SHA1), rehashea en el próximo login o forzar reset masivo.
+-No almacenar contraseñas en texto claro ni en logs.
+
+    2FA / MFA
+
+-Efectividad: MFA reduce enormemente la probabilidad de compromiso; Microsoft y SANS han reportado que MFA puede bloquear >99% de los ataques automáticos cuando se implementa correctamente — especialmente si es phishing-resistente (FIDO2 / hardware keys / passkeys). No obstante, factores de segundo paso débiles (SMS, llamadas) pueden ser socialmente burlados. 
+-Recomendación: preferir FIDO2 / WebAuthn / hardware keys o TOTP con protección de registro y backup codes bien gestionados; usar mecanismos para detectar y bloquear técnicas de MFA-bypass (phishing AitM, push fatigue).
+-Política: MFA obligatorio para cuentas con privilegios; permitir onboarding gradual y métodos de recuperación seguros (códigos de recuperación single-use y procesos de verificación manual).
+
+    Pruebas de autenticación y autorización — lista detallada para investigación
+
+    Pruebas de autenticación (login / gestión de credenciales)
+-Fuerza bruta / password spraying
+Objetivo: comprobar rate-limiting y bloqueo por intentos.
+Herramienta: Hydra / Burp Intruder / scripts controlados.
+Criterio: tras N intentos (definir N = 5–10) desde la misma cuenta o IP debe aplicarse bloqueo, captcha o backoff.
+-Credential stuffing (simulación)
+Objetivo: medir exposiciones por credenciales filtradas.
+Herramienta: herramientas simuladoras de stuffing en entorno de pruebas (o AuthREST para APIs).
+Criterio: detección/mitigación automática (rate-limit, challenge) y bloqueo de cuentas con patrones anómalos. 
+-Pruebas de recuperación de contraseña
+Objetivo: verificar tokens (aleatoriedad, expiración, single-use).
+Test: solicitar reset, interceptar token, reusar token.
+Criterio: token único, expiración corta (p. ej. <1 h), token no reutilizable.
+-Análisis de almacenamiento de credenciales
+Objetivo: verificar hashing, salt y parámetros.
+Método: revisión de configuración, audit logs; si es posible en entorno seguro, realizar cracking controlado para estimar resistencia.
+Criterio: Algoritmo seguro (Argon2/bcrypt/scrypt/PBKDF2 con parámetros altos), salt único por cuenta.
+-MFA enrolamiento y bypass
+Objetivo: probar enroll, login con MFA, recuperación con recovery codes y resistencia a push-fatigue/OTP reuse.
+Criterio: códigos TOTP sólo válidos por periodo corto; recovery codes single-use; detectar múltiples reintentos y bloquear.
+-TLS / transporte
+Objetivo: asegurar que todas las rutas de autenticación usan HTTPS y TLS moderno.
+Herramienta: SSL Labs / testssl.sh.
+Criterio: A+ o al menos ausencia de TLS <1.2 y cifrados inseguros.
+
+    Pruebas de sesión y secuestro
+
+-Session fixation & regeneration
+Test: fijar session id antes de login y verificar si el server regenera id tras autenticación.
+Criterio: ID regenerado; anterior inválido.
+
+-Cookie flags & theft
+Test: revisar HttpOnly, Secure, SameSite y probar si la cookie puede ser leída por JS (XSS).
+Criterio: HttpOnly + Secure en cookies de sesión.
+
+-Replay / token reuse
+Test: capturar token y reusar desde otra IP.
+Criterio: detección de reuse y bloqueo/invalidación o binding de token (device IP/user agent) según política.
+
+    Pruebas de autorización (control de acceso)
+
+-IDOR / Horizontal Privilege Escalation
+Test: intentar acceder a recursos con otros IDs (cambiar /user/123 → /user/124).
+Criterio: acceso denegado si no corresponde al rol/propietario.
+
+-Vertical Privilege Escalation
+Test: acciones admin con cuenta normal (probar endpoints admin con token regular).
+Criterio: 403/401 y logs de intento.
+
+-API token scope & claims
+Test: modificar JWT claims (role, uid) y reenviarlo.
+Criterio: firma verificada, claims server-side autoritarios (el servidor no confía en claims del cliente sin comprobación).
+
+    Pruebas de resiliencia y detección
+
+-Simular picos de autenticación (stress tests) para ver que rate-limiter y servicios no se degradan.
+-Simular ataques combinados: stuffing + IP rotation + user agent spoofing para verificar detección bot/anti-abuse.
+-Pentest / DAST / SAST: ejecutar Burp/ZAP + SAST (Semgrep, SonarQube) e incluir pruebas manuales de flujo lógico.
+
+    Métricas y criterios científicos que puedes usar en la investigación
+
+-Tasa de cuentas comprometidas = (nº de cuentas con credenciales en leaks relacionadas / total de cuentas) × 100. (Fuente: HIBP, feeds OSINT). 
+Wikipedia
+-Tasa de éxito de credential stuffing (simulada) = accesos válidos / intentos totales. (para estimar riesgo económico). 
+Comparitech
+-Tiempo medio hasta detección (MTTD) y remediación (MTTR) tras un intento de takeover.
+-% de cuentas con MFA habilitado y % con password reuse detectado.
+-Coste de cracking por cuenta (modelo económico: coste computacional para romper hashes con parámetros actuales — relevante cuando comparas algoritmos, ver estudio Argon2)
+
+Recursos / lecturas recomendadas (rápidas)
+
+-Have I Been Pwned — monitorización de credenciales filtradas. 
+Wikipedia
+-Microsoft Security blog — impacto y recomendación de MFA (MFA bloquea >99% ataques automatizados cuando se usa correctamente). 
+Microsoft
+-Artículos sobre credential stuffing / medidas defensivas (ej. análisis de Akamai/industry blogs). 
+Comparitech
+-Investigaciones académicas sobre Argon2 y parámetros seguros. 
+arXiv
+-OWASP Cheat Sheets (Authentication, Session Management, Password Storage) — guías prácticas para pruebas y configuración (recomiendo consultarlas directamente para checklists y ejemplos).
     
     reflexion personal
 Durante el desarrollo de esta investigación sobre fallos en sistemas de login y autenticación, me di cuenta de la enorme responsabilidad que implica diseñar e implementar mecanismos de seguridad en cualquier sistema informático. Al principio pensaba que los ataques a plataformas grandes como LinkedIn o Microsoft eran situaciones lejanas, pero al analizar cada caso comprendí que muchos de esos errores pudieron haberse evitado con prácticas básicas de protección de contraseñas y control de accesos.
 El caso de Fortinet me llamó especialmente la atención, porque muestra cómo un simple descuido en la validación de rutas administrativas puede abrir la puerta a atacantes con acceso total. En el caso de LinkedIn, me impactó saber que millones de contraseñas se filtraron solo por usar un algoritmo inseguro. Y el caso de Microsoft demuestra que incluso las empresas más grandes pueden tener vulnerabilidades si no actualizan sus sistemas de autenticación de manera constante.
 Esta investigación me ayudó a entender que la seguridad no depende solo de las herramientas, sino también de la forma en que se aplican y mantienen. Aprendí que siempre se deben realizar pruebas antes de lanzar un sistema, usar técnicas modernas de cifrado y reforzar la autenticación con métodos adicionales como el MFA. En conclusión, este trabajo me hizo más consciente de la importancia de desarrollar software seguro y de asumir la seguridad como una parte esencial del proceso, no como un paso final.
+
 
 
 
