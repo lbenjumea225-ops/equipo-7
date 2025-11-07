@@ -9,11 +9,7 @@ El propósito de esta investigación es identificar las causas técnicas de esto
 Con ello se busca generar conciencia sobre la importancia de aplicar buenas prácticas en el desarrollo seguro de sistemas de autenticación, promoviendo el uso de métodos robustos como el hash seguro, 
 la autenticación multifactor (MFA) y el cifrado adecuado de datos sensibles.
 
-En esta investigación se analizan tres casos relevantes de vulnerabilidades y ataques relacionados con la autenticación:
 
-Fortinet – CVE-2022-40684, un caso de bypass de autenticación en sistemas críticos.
-LinkedIn (2012–2016), un caso de robo masivo de credenciales por almacenamiento inseguro de contraseñas.
-Microsoft – CVE-2025-55241 (Microsoft Entra ID), una falla crítica en tokens de autenticación que permitía acceso no autorizado a cuentas administrativas.
 ----------------------------------------------
     Timeline: 
     caso-2 ---> caso-1 ----> caso-3
@@ -90,4 +86,5 @@ Fortinet CVE-2022-40684	    Bypass de autenticación	Validación incorrecta de r
 LinkedIn (2012–2016)	      Almacenamiento inseguro	Hash débil sin sal (SHA-1)	                      Robo masivo de contraseñas	                Migración a bcrypt + MFA
 Microsoft CVE-2025-55241	  Validación de tokens	Uso de tokens antiguos sin verificación completa	  Acceso administrativo remoto	              Parches + auditoría de autenticación
   
+
 
