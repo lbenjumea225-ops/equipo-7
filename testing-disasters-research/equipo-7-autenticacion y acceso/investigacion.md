@@ -9,4 +9,8 @@ El propósito de esta investigación es identificar las causas técnicas de esto
 Con ello se busca generar conciencia sobre la importancia de aplicar buenas prácticas en el desarrollo seguro de sistemas de autenticación, promoviendo el uso de métodos robustos como el hash seguro, 
 la autenticación multifactor (MFA) y el cifrado adecuado de datos sensibles.
 
+    Timeline: 
+    caso-2 ---> caso-1 ----> caso-3
+
+
 
