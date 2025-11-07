@@ -81,11 +81,12 @@ Falla en la validación de tokens de autenticación y bypass de autorización me
 Una ctualización inmediata de Entra ID y deshabilitación de APIs heredadas con una implementación obligatoria de MFA y revisión de claves de servicio y monitoreo continuo de accesos sospechosos.
 
     Análisis Comparativo
-Caso      	             |    Tipo de fallo	Causa raíz	                                              |   Impacto principal	Medidas                   correctivas
-Fortinet CVE-2022-40684	 |    Bypass de autenticación	Validación incorrecta de rutas administrativas	|   Acceso no autorizado a sistemas críticos	  Parches + restricción de interfaz administrativa
-LinkedIn (2012–2016)	   |    Almacenamiento inseguro	Hash débil sin sal (SHA-1)	                    |   Robo masivo de contraseñas	                Migración a bcrypt + MFA
-Microsoft CVE-2025-55241 |	  Validación de tokens	Uso de tokens antiguos sin verificación completa	|   Acceso administrativo remoto	              Parches + auditoría de autenticación
+    Caso      	             |    Tipo de fallo	Causa raíz	                                              |   Impacto principal	Medidas                   correctivas
+    Fortinet CVE-2022-40684	 |    Bypass de autenticación	Validación incorrecta de rutas administrativas	|   Acceso no autorizado a sistemas críticos	  Parches + restricción de interfaz administrativa
+    LinkedIn (2012–2016)	   |    Almacenamiento inseguro	Hash débil sin sal (SHA-1)	                    |   Robo masivo de contraseñas	                Migración a bcrypt + MFA
+    Microsoft CVE-2025-55241 |	  Validación de tokens	Uso de tokens antiguos sin verificación completa	|   Acceso administrativo remoto	              Parches + auditoría de autenticación
   
+
 
 
 
