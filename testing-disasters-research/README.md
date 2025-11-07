@@ -100,3 +100,5 @@ https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2022-
 
 [Sin autor] (2025, Enero 16). Se filtraron los archivos de configuración de 15.000 firewalls de Fortinet. linked in. https://es.linkedin.com/pulse/se-filtraron-los-archivos-de-configuraci%C3%B3n-15000-firewalls-fortinet-iihsc
 [Sin autor] (2022, Octubre 27). Fortinet Authentication Bypass Vulnerability Analysis – CYFIRMA. cyfirma. https://www.cyfirma.com/research/fortinet-authentication-bypass-vulnerability-exploited-by-threat-actors/
+[Sin autor] (2025, Junio 19). Filtración de datos récord de 16 mil millones de la que nadie había oído hablar.. linked in. https://es.linkedin.com/pulse/filtraci%C3%B3n-de-datos-r%C3%A9cord-16-mil-millones-la-que-nadie-hab%C3%ADa-2zvcc
+[Sin autor] (2025, Junio 20). La filtración de 16.000 millones de contraseñas sería la más grande de la historia. Si no fuera porque es un gigantesco refrito. xataka. https://www.xataka.com/seguridad/filtracion-16-000-millones-contrasenas-seria-grande-historia-no-fuera-porque-gigantesco-refrito
