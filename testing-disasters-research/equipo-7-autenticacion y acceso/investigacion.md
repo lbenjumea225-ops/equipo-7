@@ -50,44 +50,43 @@ En 2012, LinkedIn sufrió una brecha de seguridad que comprometió inicialmente 
 LinkedIn almacenaba las contraseñas de sus usuarios usando el algoritmo SHA-1 sin sal (salt).
 Esto permitió que, una vez robados los hashes, los atacantes pudieran descifrarlos fácilmente mediante ataques de diccionario y fuerza bruta.
 
-    Impacto:
+**Impacto:**
 
 Más de 100 millones de contraseñas descifradas y filtradas en foros clandestinos. Tambien causando la reutilización de credenciales en otros servicios, generando nuevas brechas y
 Daños reputacional y pérdida de confianza de los usuarios.
 
-    Tipo de vulnerabilidad
+**Tipo de vulnerabilidad**
 
 Almacenamiento inseguro de contraseñas con ataques de fuerza bruta y rainbow tables.
 
-    Medidas y mitigaciones
+**Medidas y mitigaciones**
 
 LinkedIn reemplazó SHA-1 por bcrypt con sal única por usuario al igual que implementó MFA opcional y políticas de contraseñas más seguras tambien adoptó monitoreo constante de filtraciones externas.
 
-    Caso 3: Microsoft – CVE-2025-55241 (Microsoft Entra ID)
+**Caso 3: Microsoft – CVE-2025-55241 (Microsoft Entra ID)**
 Descubierta y divulgada en julio de 2025, esta vulnerabilidad afectó al servicio Microsoft Entra ID (antiguo Azure Active Directory), utilizado globalmente para gestionar identidades y accesos en la nube.
 
-    Descripción del fallo
+**Descripción del fallo**
 
 El error permitía a atacantes aprovechar tokens de autenticación inválidos o caducados, emitidos por servicios antiguos de Microsoft, para obtener acceso de administrador global en tenants de Entra ID.
 Esto se debía a un fallo en la validación de tokens heredados, lo que dejaba abierta la posibilidad de acceso no autorizado.
 
-    Impacto
+**Impacto**
 
 -Potencial compromiso de cualquier cuenta administrativa.
 -Vulnerabilidad con puntuación CVSS 10.0 (crítica).
 -Microsoft confirmó la falla y publicó parches de emergencia en septiembre de 2025.
 
-     Tipo de vulnerabilidad
+**Tipo de vulnerabilidad**
 
 Falla en la validación de tokens de autenticación y bypass de autorización mediante tokens obsoletos.
 
-    Medidas y mitigaciones
+**Medidas y mitigaciones**
 
 Una ctualización inmediata de Entra ID y deshabilitación de APIs heredadas con una implementación obligatoria de MFA y revisión de claves de servicio y monitoreo continuo de accesos sospechosos.
 
-    analisis comparativo
+**analisis comparativo**
 <img width="1166" height="81" alt="image" src="https://github.com/user-attachments/assets/3a197550-18ba-4a28-89e1-ecba3816519a" />
-
 
 <img width="1982" height="1180" alt="image" src="https://github.com/user-attachments/assets/0358093a-e98b-4219-bf79-9d1721d88e97" />
 
@@ -95,7 +94,7 @@ Una ctualización inmediata de Entra ID y deshabilitación de APIs heredadas con
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    Caso 1 — Credenciales comprometidas / alcance del incidente
+**Caso 1 — Credenciales comprometidas / alcance del incidente**
 
 Qué usar del documento:
 
@@ -104,7 +103,7 @@ Sección “Credenciales comprometidas — magnitud y cómo medirla”: métrica
 Métricas sugeridas (Tasa de cuentas comprometidas, % con MFA, coste de cracking).
 Qué te aporta: metodología para cuantificar el tamaño del incidente y priorizar cuentas a remediar.
 
-    Caso 2 — Métodos de ataque usados / vectorización
+**Caso 2 — Métodos de ataque usados / vectorización**
 
 Qué usar:
 
@@ -113,7 +112,7 @@ Sección “Métodos de ataque comunes”: credential stuffing, brute-force/pass
 Pruebas asociadas en “Pruebas de autenticación” (simulación de stuffing, pruebas de fuerza bruta, análisis de recuperación de contraseña).
 Qué te aporta: identificación de cómo pudieron haber comprometido las cuentas y pruebas reproducibles para demostrar la técnica usada.
 
-    Caso 3 — Controles y mitigaciones / buenas prácticas y verificación
+**Caso 3 — Controles y mitigaciones / buenas prácticas y verificación**
 
 Qué usar:
 
@@ -123,10 +122,11 @@ Pruebas de autenticación y autorización: checklist detallado para verificar qu
 Qué te aporta: acciones correctivas concretas (qué cambiar) y cómo verificar que la mitigación funciona (qué pruebas pasar antes de producción).
       
     
-    reflexion personal
+**reflexion personal**
 Durante el desarrollo de esta investigación sobre fallos en sistemas de login y autenticación, me di cuenta de la enorme responsabilidad que implica diseñar e implementar mecanismos de seguridad en cualquier sistema informático. Al principio pensaba que los ataques a plataformas grandes como LinkedIn o Microsoft eran situaciones lejanas, pero al analizar cada caso comprendí que muchos de esos errores pudieron haberse evitado con prácticas básicas de protección de contraseñas y control de accesos.
 El caso de Fortinet me llamó especialmente la atención, porque muestra cómo un simple descuido en la validación de rutas administrativas puede abrir la puerta a atacantes con acceso total. En el caso de LinkedIn, me impactó saber que millones de contraseñas se filtraron solo por usar un algoritmo inseguro. Y el caso de Microsoft demuestra que incluso las empresas más grandes pueden tener vulnerabilidades si no actualizan sus sistemas de autenticación de manera constante.
 Esta investigación me ayudó a entender que la seguridad no depende solo de las herramientas, sino también de la forma en que se aplican y mantienen. Aprendí que siempre se deben realizar pruebas antes de lanzar un sistema, usar técnicas modernas de cifrado y reforzar la autenticación con métodos adicionales como el MFA. En conclusión, este trabajo me hizo más consciente de la importancia de desarrollar software seguro y de asumir la seguridad como una parte esencial del proceso, no como un paso final.
+
 
 
 
