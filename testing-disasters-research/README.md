@@ -47,3 +47,56 @@ El propósito es identificar patrones comunes, tipos de ataques, medidas de miti
 - **Impacto:** Compromiso potencial de cuentas globales, CVSS 10.0 (crítica).  
 - **Tipo:** Bypass de autorización mediante tokens obsoletos.  
 - **Mitigaciones:** Parche de seguridad, deshabilitar APIs antiguas, MFA obligatorio y rotación de claves.
+
+# Análisis Comparativo
+
+### 📋 Tabla Comparativa
+| Métrica | Fortinet | LinkedIn | Microsoft |
+|:--|:--:|:--:|:--:|
+| Cuentas comprometidas | 12,000 | 167,000,000 | <1,000 (confirmadas) |
+| Tipo de ataque | Bypass de autenticación | Fuerza bruta / hash débil | Bypass de tokens |
+| Severidad | Crítica | Alta | Crítica |
+| Año | 2022 | 2012–2016 | 2025 |
+
+### 🧩 Patrones Comunes
+
+| N.º | Patrón Común / Problema Raíz | Descripción |
+|:--:|:--|:--|
+| 1 | Reutilización de credenciales | Uso de contraseñas débiles o repetidas. |
+| 2 | Falta de mecanismos anti-bot | Permite fuerza bruta sin límites. |
+| 3 | Detección lenta de intrusiones | No se generan alertas ante accesos anómalos. |
+| 4 | Sesiones inseguras | Tokens sin renovación ni flags seguros. |
+| 5 | Almacenamiento débil | Uso de SHA-1 o MD5 sin sal. |
+
+---
+# Patrones Comunes y Tipos de Pruebas
+### 🧪 Tipos de Pruebas Recomendadas
+
+| N.º | Tipo de Prueba | Objetivo |
+|:--:|:--|:--|
+| 1 | Simulación de fuerza bruta | Verificar bloqueos y límites de login. |
+| 2 | Auditoría de almacenamiento | Revisar uso de hash y sal por usuario. |
+| 3 | Testing de sesión | Evaluar expiración, fijación y regeneración de ID. |
+| 4 | Validación de MFA | Comprobar resistencia a bypass. |
+| 5 | Revisión de logs | Buscar exposición de datos o tokens. |
+
+# Conclusiones y Lecciones Aprendidas
+
+Las vulnerabilidades en autenticación pueden comprometer infraestructuras completas.  
+- Los ataques más comunes derivan de errores de configuración y almacenamiento débil.  
+- Las buenas prácticas como **hashing seguro, MFA obligatorio y auditorías periódicas** reducen significativamente el riesgo.  
+- La detección temprana y el monitoreo continuo son esenciales para mitigar el impacto.
+
+# Referencias
+windsor, C. (2022, Octubre 14). [Update Regarding CVE-2022-40684]. . https://www.fortinet.com/blog/psirt-blogs/update-regarding-cve-2022-40684
+http://packetstormsecurity.com/files/169431/Fortinet-FortiOS-FortiProxy-FortiSwitchManager-Authentication-Bypass.html 
+http://packetstormsecurity.com/files/171515/Fortinet-7.2.1-Authentication-Bypass.html 
+https://fortiguard.com/psirt/FG-IR-22-377 
+http://packetstormsecurity.com/files/169431/Fortinet-FortiOS-FortiProxy-FortiSwitchManager-Authentication-Bypass.html 
+http://packetstormsecurity.com/files/171515/Fortinet-7.2.1-Authentication-Bypass.html 
+https://fortiguard.com/psirt/FG-IR-22-377 
+https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2022-40684 
+[Sin autor] (2022, Octubre 18). Vulnerabilidad en Fortinet FortiOS, FortiProxy y FortiSwitchManager (CVE-2022-40684). incibe-cert. https://www.incibe.es/incibe-cert/alerta-temprana/vulnerabilidades/cve-2022-40684
+
+[Sin autor] (2025, Enero 16). Se filtraron los archivos de configuración de 15.000 firewalls de Fortinet. linked in. https://es.linkedin.com/pulse/se-filtraron-los-archivos-de-configuraci%C3%B3n-15000-firewalls-fortinet-iihsc
+[Sin autor] (2022, Octubre 27). Fortinet Authentication Bypass Vulnerability Analysis – CYFIRMA. cyfirma. https://www.cyfirma.com/research/fortinet-authentication-bypass-vulnerability-exploited-by-threat-actors/
