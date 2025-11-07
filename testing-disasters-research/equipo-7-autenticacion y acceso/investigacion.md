@@ -9,8 +9,6 @@ El propósito de esta investigación es identificar las causas técnicas de esto
 Con ello se busca generar conciencia sobre la importancia de aplicar buenas prácticas en el desarrollo seguro de sistemas de autenticación, promoviendo el uso de métodos robustos como el hash seguro, 
 la autenticación multifactor (MFA) y el cifrado adecuado de datos sensibles.
 
-<img width="718" height="400" alt="image" src="https://github.com/user-attachments/assets/eae56a26-655e-45fc-ae5a-f3d870c7cbab" />
-
 ----------------------------------------------
     Timeline: 
     caso-2 ---> caso-1 ----> caso-3
@@ -87,6 +85,7 @@ Una ctualización inmediata de Entra ID y deshabilitación de APIs heredadas con
     LinkedIn (2012–2016)	   |    Almacenamiento inseguro	Hash débil sin sal (SHA-1)	                    |   Robo masivo de contraseñas	                Migración a bcrypt + MFA
     Microsoft CVE-2025-55241 |	  Validación de tokens	Uso de tokens antiguos sin verificación completa	|   Acceso administrativo remoto	              Parches + auditoría de autenticación
 
+<img width="1982" height="1180" alt="image" src="https://github.com/user-attachments/assets/0358093a-e98b-4219-bf79-9d1721d88e97" />
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -123,6 +122,7 @@ Qué te aporta: acciones correctivas concretas (qué cambiar) y cómo verificar 
 Durante el desarrollo de esta investigación sobre fallos en sistemas de login y autenticación, me di cuenta de la enorme responsabilidad que implica diseñar e implementar mecanismos de seguridad en cualquier sistema informático. Al principio pensaba que los ataques a plataformas grandes como LinkedIn o Microsoft eran situaciones lejanas, pero al analizar cada caso comprendí que muchos de esos errores pudieron haberse evitado con prácticas básicas de protección de contraseñas y control de accesos.
 El caso de Fortinet me llamó especialmente la atención, porque muestra cómo un simple descuido en la validación de rutas administrativas puede abrir la puerta a atacantes con acceso total. En el caso de LinkedIn, me impactó saber que millones de contraseñas se filtraron solo por usar un algoritmo inseguro. Y el caso de Microsoft demuestra que incluso las empresas más grandes pueden tener vulnerabilidades si no actualizan sus sistemas de autenticación de manera constante.
 Esta investigación me ayudó a entender que la seguridad no depende solo de las herramientas, sino también de la forma en que se aplican y mantienen. Aprendí que siempre se deben realizar pruebas antes de lanzar un sistema, usar técnicas modernas de cifrado y reforzar la autenticación con métodos adicionales como el MFA. En conclusión, este trabajo me hizo más consciente de la importancia de desarrollar software seguro y de asumir la seguridad como una parte esencial del proceso, no como un paso final.
+
 
 
 
