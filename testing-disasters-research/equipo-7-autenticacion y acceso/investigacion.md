@@ -43,7 +43,10 @@ Bypass de autenticación y la explotación remota sin credenciales
 Fortinet lanzó actualizaciones de seguridad el 10 de octubre de 2022 y recomendó restringir el acceso administrativo y actualizar a las versiones corregidas tambien implementar autenticación multifactor (MFA) y segmentar la red para interfaces de gestión.
 
 **caso 2: LinkedIn (2012–2016)**
-    
+
+<img width="640" height="360" alt="image" src="https://github.com/user-attachments/assets/18bed238-7bb5-4241-8934-42ab3fc7c742" />
+
+
 En 2012, LinkedIn sufrió una brecha de seguridad que comprometió inicialmente 6,5 millones de cuentas, aunque en 2016 se reveló que en realidad habían sido 167 millones
 
 **Descripción del fallo:**
@@ -55,6 +58,9 @@ Esto permitió que, una vez robados los hashes, los atacantes pudieran descifrar
 Más de 100 millones de contraseñas descifradas y filtradas en foros clandestinos. Tambien causando la reutilización de credenciales en otros servicios, generando nuevas brechas y
 Daños reputacional y pérdida de confianza de los usuarios.
 
+<img width="349" height="526" alt="image" src="https://github.com/user-attachments/assets/e5a10cde-e784-4bba-8a3e-2f9e8bde4205" />
+
+
 **Tipo de vulnerabilidad**
 
 Almacenamiento inseguro de contraseñas con ataques de fuerza bruta y rainbow tables.
@@ -64,12 +70,18 @@ Almacenamiento inseguro de contraseñas con ataques de fuerza bruta y rainbow ta
 LinkedIn reemplazó SHA-1 por bcrypt con sal única por usuario al igual que implementó MFA opcional y políticas de contraseñas más seguras tambien adoptó monitoreo constante de filtraciones externas.
 
 **Caso 3: Microsoft – CVE-2025-55241 (Microsoft Entra ID)**
+
+<img width="1200" height="600" alt="image" src="https://github.com/user-attachments/assets/22d099eb-71d1-4a54-a1ec-a6f829bd77a2" />
+
 Descubierta y divulgada en julio de 2025, esta vulnerabilidad afectó al servicio Microsoft Entra ID (antiguo Azure Active Directory), utilizado globalmente para gestionar identidades y accesos en la nube.
 
 **Descripción del fallo**
 
 El error permitía a atacantes aprovechar tokens de autenticación inválidos o caducados, emitidos por servicios antiguos de Microsoft, para obtener acceso de administrador global en tenants de Entra ID.
 Esto se debía a un fallo en la validación de tokens heredados, lo que dejaba abierta la posibilidad de acceso no autorizado.
+
+<img width="800" height="403" alt="image" src="https://github.com/user-attachments/assets/6ca6e7cf-bed8-4ccd-8851-32d440179a77" />
+
 
 **Impacto**
 
@@ -126,6 +138,7 @@ Qué te aporta: acciones correctivas concretas (qué cambiar) y cómo verificar 
 Durante el desarrollo de esta investigación sobre fallos en sistemas de login y autenticación, me di cuenta de la enorme responsabilidad que implica diseñar e implementar mecanismos de seguridad en cualquier sistema informático. Al principio pensaba que los ataques a plataformas grandes como LinkedIn o Microsoft eran situaciones lejanas, pero al analizar cada caso comprendí que muchos de esos errores pudieron haberse evitado con prácticas básicas de protección de contraseñas y control de accesos.
 El caso de Fortinet me llamó especialmente la atención, porque muestra cómo un simple descuido en la validación de rutas administrativas puede abrir la puerta a atacantes con acceso total. En el caso de LinkedIn, me impactó saber que millones de contraseñas se filtraron solo por usar un algoritmo inseguro. Y el caso de Microsoft demuestra que incluso las empresas más grandes pueden tener vulnerabilidades si no actualizan sus sistemas de autenticación de manera constante.
 Esta investigación me ayudó a entender que la seguridad no depende solo de las herramientas, sino también de la forma en que se aplican y mantienen. Aprendí que siempre se deben realizar pruebas antes de lanzar un sistema, usar técnicas modernas de cifrado y reforzar la autenticación con métodos adicionales como el MFA. En conclusión, este trabajo me hizo más consciente de la importancia de desarrollar software seguro y de asumir la seguridad como una parte esencial del proceso, no como un paso final.
+
 
 
 
