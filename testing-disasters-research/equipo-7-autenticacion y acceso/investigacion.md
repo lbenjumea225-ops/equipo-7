@@ -1,8 +1,8 @@
-**Fallos específicos en sistemas de login y autenticación**
+# Fallos específicos en sistemas de login y autenticación
 
 **jeferson benjumea - juan jose crespo - muñoz**
 
-**Introducción:**
+# Introducción
 Este tema de estudio se evidencia fallos de seguridad en sistemas de login y autenticación, la investigación se hizo con el objetivo de comprender como los errores en el manejo de credenciales,
 contraseñas y otros procesos de verificación pueden poner en riesgo nuestra información y pueden permitir el acceso a sistemas críticos que pueden poner en riesgo esa información.
 Nos centramos en analizar casos reales de vulnerabilidades que expusieron millones de personas por robos masivos de información,y como algunos fallos podían comprometer completamente la seguridad de una organización
@@ -16,7 +16,7 @@ la autenticación multifactor (MFA) y el cifrado adecuado de datos sensibles.
 ----------------------------------------------
 
 
-**Caso 1: Fortinet – CVE-2022-40684 (2022)**
+# Caso 1: Fortinet – CVE-2022-40684 (2022)
 <img width="820" height="480" alt="image" src="https://github.com/user-attachments/assets/f5b200a5-26e4-464b-8901-87e843fb4493" />
 
 Descubierta en octubre de 2022, esta vulnerabilidad afectó productos de Fortinet como FortiOS, FortiProxy y FortiSwitchManager, utilizados para administrar redes y cortafuegos en organizaciones de todo el mundo.
@@ -42,7 +42,7 @@ Bypass de autenticación y la explotación remota sin credenciales
 
 Fortinet lanzó actualizaciones de seguridad el 10 de octubre de 2022 y recomendó restringir el acceso administrativo y actualizar a las versiones corregidas tambien implementar autenticación multifactor (MFA) y segmentar la red para interfaces de gestión.
 
-**caso 2: LinkedIn (2012–2016)**
+# caso 2: LinkedIn (2012–2016)
 
 <img width="640" height="360" alt="image" src="https://github.com/user-attachments/assets/18bed238-7bb5-4241-8934-42ab3fc7c742" />
 
@@ -69,7 +69,7 @@ Almacenamiento inseguro de contraseñas con ataques de fuerza bruta y rainbow ta
 
 LinkedIn reemplazó SHA-1 por bcrypt con sal única por usuario al igual que implementó MFA opcional y políticas de contraseñas más seguras tambien adoptó monitoreo constante de filtraciones externas.
 
-**Caso 3: Microsoft – CVE-2025-55241 (Microsoft Entra ID)**
+# Caso 3: Microsoft – CVE-2025-55241 (Microsoft Entra ID)
 
 <img width="1200" height="600" alt="image" src="https://github.com/user-attachments/assets/22d099eb-71d1-4a54-a1ec-a6f829bd77a2" />
 
@@ -106,7 +106,7 @@ Una ctualización inmediata de Entra ID y deshabilitación de APIs heredadas con
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-**Caso 1 — Credenciales comprometidas / alcance del incidente**
+# Caso 1 — Credenciales comprometidas / alcance del incidente
 
 Qué usar del documento:
 
@@ -115,7 +115,7 @@ Sección “Credenciales comprometidas — magnitud y cómo medirla”: métrica
 Métricas sugeridas (Tasa de cuentas comprometidas, % con MFA, coste de cracking).
 Qué te aporta: metodología para cuantificar el tamaño del incidente y priorizar cuentas a remediar.
 
-**Caso 2 — Métodos de ataque usados / vectorización**
+# Caso 2 — Métodos de ataque usados / vectorización
 
 Qué usar:
 
@@ -124,7 +124,7 @@ Sección “Métodos de ataque comunes”: credential stuffing, brute-force/pass
 Pruebas asociadas en “Pruebas de autenticación” (simulación de stuffing, pruebas de fuerza bruta, análisis de recuperación de contraseña).
 Qué te aporta: identificación de cómo pudieron haber comprometido las cuentas y pruebas reproducibles para demostrar la técnica usada.
 
-**Caso 3 — Controles y mitigaciones / buenas prácticas y verificación**
+# Caso 3 — Controles y mitigaciones / buenas prácticas y verificación
 
 Qué usar:
 
@@ -134,10 +134,11 @@ Pruebas de autenticación y autorización: checklist detallado para verificar qu
 Qué te aporta: acciones correctivas concretas (qué cambiar) y cómo verificar que la mitigación funciona (qué pruebas pasar antes de producción).
       
     
-**reflexion personal**
+# reflexion personal
 Durante el desarrollo de esta investigación sobre fallos en sistemas de login y autenticación, me di cuenta de la enorme responsabilidad que implica diseñar e implementar mecanismos de seguridad en cualquier sistema informático. Al principio pensaba que los ataques a plataformas grandes como LinkedIn o Microsoft eran situaciones lejanas, pero al analizar cada caso comprendí que muchos de esos errores pudieron haberse evitado con prácticas básicas de protección de contraseñas y control de accesos.
 El caso de Fortinet me llamó especialmente la atención, porque muestra cómo un simple descuido en la validación de rutas administrativas puede abrir la puerta a atacantes con acceso total. En el caso de LinkedIn, me impactó saber que millones de contraseñas se filtraron solo por usar un algoritmo inseguro. Y el caso de Microsoft demuestra que incluso las empresas más grandes pueden tener vulnerabilidades si no actualizan sus sistemas de autenticación de manera constante.
 Esta investigación me ayudó a entender que la seguridad no depende solo de las herramientas, sino también de la forma en que se aplican y mantienen. Aprendí que siempre se deben realizar pruebas antes de lanzar un sistema, usar técnicas modernas de cifrado y reforzar la autenticación con métodos adicionales como el MFA. En conclusión, este trabajo me hizo más consciente de la importancia de desarrollar software seguro y de asumir la seguridad como una parte esencial del proceso, no como un paso final.
+
 
 
 
