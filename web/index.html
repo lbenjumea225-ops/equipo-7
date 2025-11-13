@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipo 7 – Fallos en sistemas de login y autenticación</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #f8fafc;
+    }
+
+    header {
+      background: rgba(30, 41, 59, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    header h1 {
+      color: #38bdf8;
+      font-size: 1.5rem;
+    }
+
+    nav a {
+      color: #f1f5f9;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    h2 {
+      color: #38bdf8;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #38bdf8;
+      display: inline-block;
+      padding-bottom: 0.3rem;
+    }
+
+    .case {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .case:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .case img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      max-height: 350px;
+      object-fit: cover;
+    }
+
+    .tooltip {
+      border-bottom: 1px dashed #38bdf8;
+      cursor: help;
+      position: relative;
+    }
+
+    .tooltip:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 0;
+      bottom: -1.5rem;
+      background: #334155;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    footer {
+      background: #1e293b;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    .btn-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #38bdf8;
+      color: #0f172a;
+      padding: 10px 15px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav a {
+        display: block;
+        margin: 0.5rem 0;
+      }
+      .case {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Equipo 7 — Fallos en sistemas de login y autenticación</h1>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#caso1">Fortinet</a>
+      <a href="#caso2">LinkedIn</a>
+      <a href="#caso3">Microsoft</a>
+      <a href="#conclusion">Conclusión</a>
+    </nav>
+  </header>
+
+  <section id="inicio">
+    <h2>Introducción</h2>
+    <p>
+      En esta investigación se analizaron tres casos reales de fallos en sistemas de autenticación: 
+      <span class="tooltip" data-tooltip="CVE-2022-40684, vulnerabilidad crítica en sistemas Fortinet.">Fortinet</span>, 
+      <span class="tooltip" data-tooltip="Robo de 167 millones de contraseñas.">LinkedIn</span> 
+      y 
+      <span class="tooltip" data-tooltip="Vulnerabilidad CVE-2025-55241 en Microsoft Entra ID.">Microsoft Entra ID</span>.
+      Estos incidentes evidencian la importancia de implementar medidas seguras de acceso y almacenamiento de credenciales, 
+      así como de realizar pruebas exhaustivas antes del despliegue en producción.
+    </p>
+  </section>
+
+  <section id="caso1" class="case">
+    <h2>Caso 1: Fortinet – CVE-2022-40684</h2>
+    <img src="./assets/img/fortinet.jpg" alt="Fortinet logo">
+    <p>
+      En octubre de 2022 se descubrió una vulnerabilidad crítica que permitía a atacantes 
+      <b>bypassear la autenticación</b> en productos Fortinet como FortiOS y FortiProxy. 
+      A través de peticiones HTTP manipuladas, un atacante podía acceder al panel administrativo 
+      sin credenciales válidas, crear usuarios o agregar claves SSH. 
+      Este fallo fue clasificado como <b>alta severidad (CVSS 9.8)</b> y explotado activamente.
+    </p>
+    <p>
+      <b>Impacto:</b> acceso total a sistemas críticos de red.<br>
+      <b>Mitigación:</b> Fortinet publicó parches urgentes, 
+      recomendando actualizar los dispositivos, restringir el acceso administrativo 
+      y activar autenticación multifactor (MFA).
+    </p>
+  </section>
+
+  <section id="caso2" class="case">
+    <h2>Caso 2: LinkedIn (2012–2016)</h2>
+    <img src="./assets/img/linkedin.jpg" alt="LinkedIn logo">
+    <p>
+      En 2012, LinkedIn sufrió una de las brechas más grandes de su historia. 
+      Se filtraron inicialmente 6.5 millones de contraseñas, aunque en 2016 
+      se confirmó que fueron más de <b>167 millones de cuentas afectadas</b>. 
+      El problema radicó en el uso del algoritmo <b>SHA-1 sin sal</b>, 
+      lo que permitió a los atacantes descifrar fácilmente los hashes obtenidos.
+    </p>
+    <p>
+      <b>Impacto:</b> exposición masiva de contraseñas y reutilización en otros servicios.<br>
+      <b>Medidas:</b> LinkedIn migró a bcrypt con sal única por usuario, 
+      implementó MFA y reforzó sus políticas de contraseñas.
+    </p>
+  </section>
+
+  <section id="caso3" class="case">
+    <h2>Caso 3: Microsoft – CVE-2025-55241 (Microsoft Entra ID)</h2>
+    <img src="./assets/img/microsoft.jpg" alt="Microsoft Entra ID">
+    <p>
+      En julio de 2025 se detectó una vulnerabilidad en 
+      <b>Microsoft Entra ID</b> que permitía aprovechar tokens de autenticación 
+      inválidos para obtener acceso administrativo global. 
+      El fallo se originó en la validación de tokens heredados de servicios antiguos.
+    </p>
+    <p>
+      <b>Impacto:</b> posibilidad de acceder a cuentas con privilegios elevados.<br>
+      <b>Medidas:</b> Microsoft lanzó parches de emergencia, deshabilitó APIs obsoletas 
+      y reforzó la validación de tokens junto con MFA obligatorio.
+    </p>
+  </section>
+
+  <section id="conclusion">
+    <h2>Conclusión</h2>
+    <p>
+      Los tres casos estudiados reflejan una constante: los errores en autenticación 
+      pueden comprometer millones de datos y sistemas críticos. 
+      La seguridad debe ser parte integral del desarrollo, no una fase opcional. 
+      Las buenas prácticas incluyen el uso de <b>hash seguro</b> (bcrypt, Argon2), 
+      la aplicación de <b>salting</b>, el uso de <b>MFA</b> y la ejecución de 
+      <b>pruebas de seguridad exhaustivas</b> antes de la puesta en producción.
+    </p>
+    <p style="margin-top:1rem;">
+      🔗 <a href="../README.md" style="color:#38bdf8;">Ver documentación técnica (README.md)</a>
+    </p>
+  </section>
+
+  <button class="btn-top" id="btnTop">↑</button>
+
+  <footer>
+    © 2025 Equipo 7 — Proyecto: Fallos en sistemas de login y autenticación  
+    <br> Universidad / Curso de Desarrollo de Software
+  </footer>
+
+  <script>
+    // Botón volver arriba
+    const btn = document.getElementById("btnTop");
+    window.onscroll = function() {
+      if (document.documentElement.scrollTop > 300) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+    btn.onclick = function() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  </script>
+
+</body>
+</html>
